@@ -5,7 +5,9 @@ A mini AI support agent for a live chat widget, built as part of the Founding Fu
 ## ✨ Features
 - **Modern UI/UX**: Premium Glassmorphism design with fluid animations via Framer Motion.
 - **Persistent Conversations**: Chat history is saved to a SQLite database and persists across browser refreshes.
+- **API Spec Aligned**: Fully supports optional session IDs and returns contextual metadata as per requirements.
 - **AI-Powered**: Integrated with Groq (Llama 3 70B) for fast and intelligent support responses.
+- **Markdown Support**: AI responses are rendered with full Markdown support for clear formatting.
 - **Domain Knowledge**: Seeded with store-specific knowledge (shipping, returns, hours).
 - **Robustness**: Input validation with Zod, character limits, and graceful error handling.
 
@@ -86,3 +88,22 @@ The app will be available at `http://localhost:5174` (or similar, check console)
 2. **Context Window Management**: Implement better token counting to prevent hitting LLM context limits on very long conversations (currently caps at 10 messages).
 3. **Multi-tenant Knowledge**: Allow different knowledge bases to be loaded depending on the session or URL.
 4. **Unit Tests**: Add Jest/Vitest for the LLM service and React Testing Library for the UI components.
+
+---
+
+## 🌐 Deployment Suggestions
+
+As per the assignment requirements, here are the paths to deploy:
+
+### Backend (Node.js)
+- **Render**: Connect your GitHub repo, select "Web Service", and use `npm install && npm run build` as build command and `npm start` as start command.
+- **Railway**: Similar to Render, very fast setup for Node applications.
+- **Railway/ElephantSQL**: If you want to move from SQLite to Postgres, these are great options.
+
+### Frontend (React/Vite)
+- **Vercel**: Simply import the repository and it will automatically detect the Vite setup.
+- **Netlify**: Connect your GitHub repo and use `npm run build` as the build command and `dist` as the publish directory.
+
+---
+
+*Built with ❤️ for the Spur Founding Engineer Take-Home.*

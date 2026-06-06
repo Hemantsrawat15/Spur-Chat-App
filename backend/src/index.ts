@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
 
 const MessageSchema = z.object({
   message: z.string().min(1).max(2000),
-  sessionId: z.string().min(1),
+  sessionId: z.string().optional(),
 });
 
 // 1. Get Chat History
@@ -52,7 +53,12 @@ app.post("/chat/message", async (req, res) => {
     });
   }
 
-  const { message, sessionId } = validation.data;
+  let { message, sessionId } = validation.data;
+  
+  // If no sessionId provided, generate one (UUID)
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+  }
 
   try {
     // Ensure conversation exists
@@ -86,7 +92,7 @@ app.post("/chat/message", async (req, res) => {
       data: { conversationId: sessionId, role: "assistant", text: aiReply },
     });
 
-    res.json({ reply: aiReply });
+    res.json({ reply: aiReply, sessionId });
   } catch (error) {
     console.error("Chat Logic Error:", error);
     res.status(500).json({ error: "Something went wrong on our end. Please try again." });
